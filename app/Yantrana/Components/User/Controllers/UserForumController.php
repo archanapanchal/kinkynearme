@@ -85,7 +85,7 @@ class UserForumController extends BaseController
         $processReaction['data']['forumCatgories'] = $this->manageForumCategoriesEngine->prepareParentForumCategoryList();
         $processReaction['data']['interestsList'] = $this->manageForumTopicsEngine->getInterestsList();
         $userMatchData = getMatchUser();
-        $processReaction['data']['userMatchData'] = $userMatchData;
+        $processReaction['data']['userMatchData'] = $userMatchData; 
         return $this->loadProfileView('user.discussion-forum', $processReaction['data']);
     }
 
