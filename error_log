@@ -1,0 +1,37 @@
+[24-Dec-2021 11:40:02 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/mintbigm/kinkynearme.mobilegiz.com/test.php on line 3
+[30-Dec-2021 11:36:06 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:36:38 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:37:10 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:40:12 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:53:49 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:54:59 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:56:48 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:56:54 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:56:57 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:58:08 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:58:19 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:58:24 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 11:59:19 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:01:06 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:01:49 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:02:10 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:03:42 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:06:05 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:06:25 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:06:43 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:06:58 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:13:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/mintbigm/kinkynearme.mobilegiz.com/bootstrap/app.php:14
+Stack trace:
+#0 /home/mintbigm/kinkynearme.mobilegiz.com/artisan(20): require_once()
+#1 {main}
+  thrown in /home/mintbigm/kinkynearme.mobilegiz.com/bootstrap/app.php on line 14
+[30-Dec-2021 12:21:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/mintbigm/kinkynearme.mobilegiz.com/bootstrap/app.php:14
+Stack trace:
+#0 /home/mintbigm/kinkynearme.mobilegiz.com/artisan(20): require_once()
+#1 {main}
+  thrown in /home/mintbigm/kinkynearme.mobilegiz.com/bootstrap/app.php on line 14
+[30-Dec-2021 12:22:14 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:24:38 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:26:39 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:27:43 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25
+[30-Dec-2021 12:46:52 UTC] PHP Parse error:  syntax error, unexpected '{', expecting function (T_FUNCTION) or const (T_CONST) in /home/mintbigm/kinkynearme.mobilegiz.com/app/Console/Kernel.php on line 25

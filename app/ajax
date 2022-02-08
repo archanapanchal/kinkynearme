@@ -1,0 +1,33 @@
+<?php
+  /*
+      AJAX Template
+      --------------
+  */
+
+  // PHP file Compression.
+    ob_start('ob_gzhandler');
+
+  // Template settings.
+    $main_content_pos = 1; // Used when page contains login form to view its content.
+    @include ("../_config/settings.php"); // DO NOT EDIT, MOVE, OR REMOVE THIS!
+
+  // Include any template-specific CMS components.
+
+  // Output the HTML page template.
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
+    <head>
+        <?php echo $siteview_stylesandscripts . $module_css_styles . $text_content_preview_script; ?>
+        <script>
+            var clinicsUri = '<?php echo substr(B2K_CLINICFINDER_APP_URL, 1); ?>';
+        </script>
+    </head>
+
+    <body>
+        <?php administration_toolbar(); ?>
+        <div class="modal-content-body sandwiched">
+          <?php fetch_page_content(1, 'terms-conditions'); ?>
+        </div>
+    </body>
+</html>

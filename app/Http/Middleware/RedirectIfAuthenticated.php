@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Providers\RouteServiceProvider;
+use Closure;
+use Session;
+use URL;
+use Illuminate\Support\Facades\Auth;
+
+class RedirectIfAuthenticated
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string|null  $guard
+     * @return mixed
+     */
+    public function handle($request, Closure $next, $guard = null)
+    {
+        if (Auth::check()) {
+            $userAuthInfo = getUserAuthInfo(10);
+            if ($request->ajax()) {
+                return __apiResponse([
+                    'auth_info' => $userAuthInfo,
+                ], 10);
+            }
+
+            Session::put('intendedUrl', URL::current());
+
+            // Check if current user is admin
+            return redirect()->route('user.profile_view', ['username' => getUserAuthInfo('profile.username')]);
+        }
+
+        return $next($request);
+    }
+}

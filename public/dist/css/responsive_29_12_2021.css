@@ -1,0 +1,145 @@
+@media (min-width: 1679px) {
+.container {max-width: 1440px;}
+.banner:before{ border-left: 1920px solid transparent;}
+.col-md-7.text-left {flex: 0 0 53.33333%;max-width: 53.33333%;width: 745px;}
+.subscription-border{flex: 0 0 20.7%;max-width: 20.7%;margin:0px 30px;}
+.find-free-chat-img{height:357px;}
+.for-everyone{padding:128px 0 227px 0;}
+.heading-title {font-size:40px;}
+.forums-community .find-free-chat-left-side .title-para{padding-bottom:20px;}
+.forums-community .title-para{padding-bottom:10px;}
+.title-para{padding-bottom:20px;}
+.kinky-partner .icon-box{width:100%; margin:auto;}
+.bg-img{width: auto;}
+.kinky-partner .partner-icon:before {left:290px;}
+footer .footer-link li a{padding:0px 20px;}
+footer .Copyright-footer p {font-size: 16px;}
+.banner-form{width:100%;position: absolute;}
+.banner{height:850px;}
+.about p{font-size:20px;
+}
+@media (min-width: 1366px) and (max-width: 1678px) {
+.subscription-border {
+border: 1px solid #0000002E;
+border-radius: 4px;
+flex: 0 0 22%;
+max-width: 22%;
+margin: 0px 16px;
+}
+.banner-form{width:100%;position: absolute;}
+.banner{height:750px;}
+}
+@media (min-width: 768px) and (max-width:1024px) {
+.partner-button .btn-primary {width: 100%;}
+.subscription-border {flex: 0 0 45%;max-width: 45%;margin: 15px 15px;}
+.kinky-partner .partner-icon:before{display: none;}
+.banner:before{top:4px;}
+.kinky-partner .partner-desc{margin-bottom:50px;}
+.partner-button{padding-top:50px;}
+.forums-community .find-free-chat-left-side, .forums-community .find-free-chat-right-side {padding: 50px 15px 70px 15px;}
+.find-free-chat .col-md-6.text-center:first-child, .forums-community .col-md-6:first-child {padding-right: 20px;}
+.find-free-chat .col-md-6.text-center:last-child, .forums-community .col-md-6:last-child {padding-left: 20px;}
+footer img {width: 100%;}
+footer .footer-link li a{font-size:10px;padding:0px 5px;}
+.navbar ul li{margin:0px 0px 10px 0px;}
+}
+@media (max-width: 767px) {
+.navbar{padding:10px;}
+footer .footer-link ul{flex-direction: column;margin-top:30px;    align-items: start;}
+.for-everyone, .find-free-chat, .kinky-partner, .plan-for-you, .forums-community{padding:50px 0px;}
+.banner-form .form-title, .partner-button .btn-primary{width:100%;}
+.kinky-partner .partner-icon:before{display: none;}
+.kinky-partner .partner-desc {margin-bottom: 30px;}
+.find-free-chat .col-md-6.text-center:first-child, .forums-community .col-md-6:first-child{padding-right:15px;margin-bottom:20px;}
+.find-free-chat .col-md-6.text-center:last-child, .forums-community .col-md-6:last-child{padding-left:15px;}
+.sld2 .subscription-border {
+flex: 0 0 auto!important;
+max-width: unset!important;
+height: 497px!important;
+width: 100%;
+}
+.forums-community .find-free-chat-left-side{margin-right:0px;}
+.forums-community .find-free-chat-right-side{margin-left:0px;}
+.partner-button {padding-top: 40px;}
+.find-free-chat-img {height: auto;}
+.find-free-chat .find-free-chat-left-side, .find-free-chat .find-free-chat-right-side {padding: 0 22px 68px 22px;}
+.nav-tabs li.nav-item {margin-bottom: 20px;margin-right: 0px;flex:1;}
+.navbar ul li{margin:0px 0px 10px 0px;}
+.btn-primary{padding:4px 20px;margin-top: 10px; }
+.banner{background-position: 25%;}
+.nav-tabs li a{font-size:14px;padding:4px 25px;}
+.nav-tabs{padding-bottom:50px;}
+.heading-title{font-size:30px;}
+.plan-for-you .tab-content .mobile-show{display: block;}
+.plan-for-you .tab-content .mobile-hide, .owl-nav{display: none;}
+.tab-content .owl-dots {text-align: center;}
+.tab-content .sld2 button.owl-dot {width: 10px;height: 10px;background: #606980 0% 0% no-repeat padding-box;border-radius: 50%;margin: 0 4.5px;}
+.tab-content .sld2 .owl-dot.active {background: #FF4E0B;}
+.banner-form label{font-size:15px;}
+.form-register .recatcha{width:100%;}
+.form-title {padding: 0px 15px;}
+/*.tab-content .sld2 button.owl-dot{background: #fff 0% 0% no-repeat padding-box;}*/
+.subscription-plan .subscription-border {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin: 0px auto;
+}
+.subscription-plan .subscription-plan-desc li{padding:0px 20px;}
+.banner {height: auto;}
+.banner-form{position: unset;}
+.banner-form .form-group {margin-bottom: 16px;}
+.login-section, .register-section{padding: 110px 0px 110px;}
+}
+
+/*Ankit-responsive*/
+@media (max-width: 767px){
+    .complete-form-section .com-header h2 {
+        font-size: 20px;
+        letter-spacing: .2px;
+        line-height: 24px;
+    }
+    .complete-form-section .com-header p.com-text {
+        font-size: 16px;
+        letter-spacing: .2px;
+        line-height: 20px;
+    }
+    .complete-form-section .com-header {
+        margin: 0 0 30px;
+    }
+    .complete-form-section {
+        padding: 60px 15px 60px;
+    }
+    .com-form .formprogres-bar{
+        padding: 18px 20px;
+    }
+    .complete-form-section .com-form .form-field select, .complete-form-section .com-form .form-field input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), .complete-form-section .com-form .form-field textarea {
+        height: 45px;
+        font-size: 14px;
+    }
+    .complete-form-section .form-field label {
+        font-size: 14px;
+        margin: 0 0 8px;
+    }
+    body #msform .action-button {
+        height: 50px;
+        font-size: 16px;
+        line-height: 50px;
+    }
+}
+@media (max-width: 599px){
+    .form-progress >li {
+        padding: 0 10px;
+    }
+    .com-form .formprogres-bar a{
+        font-size: 14px;
+    }
+    .form-progress >li:not(:last-child):before {
+        width: 20px;
+        left: 34px;
+    }
+    .com-form-white {
+        padding: 20px 20px 20px;
+    }
+    .complete-form-section .form-card {margin: 0 0 20px;}
+}
