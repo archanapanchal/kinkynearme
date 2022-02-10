@@ -64,7 +64,13 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link @if($active_tab == 6) active @endif" style="pointer-events:<?= $plan_checked ?>" href=" @if(!empty($userMatchData['data'])) <?= url('user/messages') ?> @endif" role="tab" >Messages</a>
+                            <a class="nav-link @if($active_tab == 6) active @endif" 
+                            @if(!empty($userMatchData['data']))
+                                style="pointer-events:<?= $plan_checked ?>"; 
+                            @else 
+                              style="pointer-events:none" 
+                            @endif
+                            href="@if(!empty($userMatchData['data'])) <?= url('user/messages') ?> @else javascript:void(0); @endif" role="tab" >Messages</a>
                         </li>
                        
                         

@@ -55,7 +55,12 @@
                 @else 
                     <h5>Open for relationships</h5>
                 @endif
-                <p>BDSM, Blindfold, Piercing</p>
+                @if(!empty($user['kinks']))
+                    @php $kink = str_limit($user['kinks'], $limit = 25, $end = '...')  @endphp
+                    <p>{{ucwords(str_replace(array(",", "-"), array(", ", " "),$kink))}}</p>
+                @else 
+                    <p>BDSM, Blindfold, Piercing</p>
+                @endif
 
                 <?php 
 

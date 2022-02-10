@@ -248,7 +248,6 @@
 
         $('.submitvidios').change(function(){
             var files = $('#file')[0].files;
-            console.log(files);
             if(files.length > 0){
              var fd = new FormData();
 
@@ -260,7 +259,7 @@
 
              // Hide alert 
              $('#responseMsg').hide();
-
+             $('#loading').css("display","block");
              $.ajax({
                 url: "{{route('user.upload_video')}}",
                method: 'post',
@@ -275,7 +274,7 @@
                  $('#err_file').addClass('d-none');
 
                  if(response.success == 1){ // Uploaded successfully
-
+                      $('#loading').css("display","none");
                    // Response message
                    $('#responseMsg').removeClass("alert-danger");
                    $('#responseMsg').addClass("alert-success");
@@ -294,13 +293,14 @@
                       $('#filepreview a').show();
                    }
                  }else if(response.success == 2){ // File not uploaded
-
+                    $('#loading').css("display","none");
                    // Response message
                    $('#responseMsg').removeClass("alert-success");
                    $('#responseMsg').addClass("alert-danger");
                    $('#responseMsg').html(response.message);
                    $('#responseMsg').show();
                  }else{
+                    $('#loading').css("display","none");
                    // Display Error
                    $('#err_file').text(response.error);
                    $('#err_file').removeClass('d-none');

@@ -42,6 +42,7 @@
                  <h4 class="heading-title-h4">Edit Profile</h4>
               </div>
               <div class="edit-pic">
+                
                  <img src="<?= $userData['profilePicture'] ?>" id="lwProfilePictureStaticImage">
                  <div class="edit-pic-action">
                     <!-- <a href="#" class="btn btn-outline-secondary bg-color">edit</a> -->
@@ -114,7 +115,7 @@
                     <div class="form-field">
                        <label>Date of Birth</label>
                        <div class="date-input">
-                          <input type="date" onkeydown="return false" max="{{ date('Y-m-d',strtotime('18 years ago')) }}" min="{{ date('Y-m-d',strtotime('100 years ago')) }}"  name="dob" placeholder="Jan 3 1985" value="<?php echo date("Y-m-d", strtotime($userProfileData['birthday'])); ?>">
+                          <input type="date" onkeydown="return false" max="{{ date('Y-m-d',strtotime('18 years ago')) }}" min="{{ date('Y-m-d',strtotime('100 years ago')) }}"  name="dob" placeholder="Jan 3 1985" value="<?php echo date("Y-m-d", strtotime($userProfileData['dob'])); ?>">
                           @error('dob')
                              <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>
@@ -148,11 +149,7 @@
                     </div>
 
                     <?php //echo "<pre>"; print_r($userSpecifications['city_id']); exit;?>
-                    <div class="form-field select-input">
-                          <label>City/State</label>
-                           <input type="hidden" name="city_id" id="cityIdS" value="{{$userSpecifications['city_id']}}">
-                           <input type="text" id="selectLocationCity" class="form-control"  value="{{ $userProfileData['city']}}">
-                       </div>
+               
 
                    
 
@@ -570,6 +567,8 @@
                         <div class="portfolio-images col-md-12">
                             <div class="row" >
                                 <?php 
+                                // echo "<pre>";
+                                // print_r($photosData);
                                   if (!empty($photosData)) {
                                    foreach ($photosData as $key => $photo) {   
                                      $explode_photo = explode('users/',$photo['image_url']);
@@ -580,11 +579,14 @@
                                          //echo "<pre>";print_r($explode_photo1[2]);exit();
 
                                      ?>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 image-{{$key}}">
                                          <img src="<?php echo $img_url; ?>">
                                          <div class="edit-delete-btn">
+
+                                            <a style="cursor: pointer;" class="delete-portfolio-image" image_name="{{$image_name}}" username="{{$userData['userName']}}" key="{{$key}}"><i class="far fa-trash-alt"></i></a>
+
                                            <!-- <a href="#" class="edit"><i class="far fa-edit"></i></a> -->
-                                           <a href="<?= route('user.delete.portfolio', ['username' => $userData['userName'],'image_name' => $image_name]) ?>" class="delete" ><i class="far fa-trash-alt"></i></a>
+                                          <!--  <a href="<?= route('user.delete.portfolio', ['username' => $userData['userName'],'image_name' => $image_name]) ?>" class="delete" ><i class="far fa-trash-alt"></i></a> -->
                                          </div>
                                        </div>
                                       
@@ -600,6 +602,7 @@
                                   <!--   data-callback="afterFileUpload"  -->
                                   <!-- <button type="button" class="btn btn-outline-secondary bg-color">UPLOAD MORE IMAGES</button> -->
                                 </div>
+                                <p>Allowed format - jpg, png & Max file size 2 MB</p>
                            </div>
                         </div>
                     <?php }?>
@@ -620,7 +623,7 @@
                            foreach ($userData['user_videos'] as $key => $video) {
                              ?>
                                 <div class="col-md-6">
-                                  <iframe width="420" height="315" src="<?= $video['url'] ?>"></iframe> 
+                                  <iframe width="420" height="315" src="<?= $video['url'] ?>" autoplay="0"></iframe> 
                                  <div class="edit-delete-btn">
                                    <!-- <a href="#" class="edit"><i class="far fa-edit"></i></a> -->
                                    <a href="<?= route('user.delete_video', ['video_id' => $video['video_id']]) ?>" class="delete"><i class="far fa-trash-alt"></i></a>
@@ -633,12 +636,15 @@
                     </div>
                     <?php if ($plan_deatail['title'] != "7 Days Trial") { ?>
                     <div class="col-md-12 text-center">
+                        <div id="loading" style="display:none;"></div>
                         <div class="upload-more-img upload-custom-btn">
                           <div class="form-group">
                                 <input type='file' id="file" name='file' class="submitvidios" accept="video/*">
                                 UPLOAD MORE VIDEO
                           </div>
                         </div>
+                          <p>Allowed format - mp4, mov, wmv, avi, mkv & Max file size 30 MB</p>
+                          
                         <div class="alert displaynone" id="responseMsg"></div>
                     </div>
                     <?php } }?>
@@ -658,12 +664,51 @@
      .hideanimation {
     display:none !important;
 }
+#loading {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(192, 192, 192, 0.5);
+  background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
   </style>
 @push('appScripts')
 <script>
  new WOW().init();
 </script>
 <script>
+
+    $(document).on('click','.delete-portfolio-image',function(){
+        var username = $(this).attr('username');
+        var imagename = $(this).attr('image_name');
+        var key = $(this).attr('key');
+        var token = $("meta[name='csrf-token']").attr("content");
+        var url = "{{url('/')}}/user/settings/@"+username+'/delete-portfolio-image';
+        
+        $.ajax(
+        {
+            url: url,
+            type: 'get',
+            data: {
+                "username": username,
+                "image_name": imagename,
+                "_token": token,
+            },
+            success: function (response){
+                $('.image-'+key).css('display','none');
+                alert('Portfolio picture deleted successfully.');
+            }
+        });
+
+    })
+
+  
     $(function() {
         $('#username').on('keypress', function(e) {
             if (e.which == 32){

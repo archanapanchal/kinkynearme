@@ -439,17 +439,25 @@ class UserSettingEngine extends BaseEngine implements UserSettingEngineInterface
     public function processDeletePortfolioImage($image_name, $requestType){
         $userData =  User::where('_id',getUserID())->get()->toArray();
         $photo_detail = UserPhotosModel::where('users__id', getUserID())->where('file',$image_name)->get();
-        $photo_collection_id = $photo_detail[0]->_id;
-        
-        $userPhotosFolderPath = getPathByKey('user_photos', ['{_uid}' => getUserID()]);
-        // Get user photos collection
-        $userPhotosCollection = UserPhotosModel::where('_id',$photo_collection_id)->first()->toArray();
-        $image_url = getMediaUrl($userPhotosFolderPath, $userPhotosCollection['file']);
-        $userprofile_img = storage_path('app/'.$image_url);
-        if(File::exists($userprofile_img)){
-                unlink($userprofile_img);
+       //    echo "<pre>"; print_r($photo_detail); exit;
+        if(count($photo_detail) != 0 )
+        {
+            $photo_collection_id = $photo_detail[0]->_id;
+
+            $userPhotosFolderPath = getPathByKey('user_photos', ['{_uid}' => getUserID()]);
+            // Get user photos collection
+            $userPhotosCollection = UserPhotosModel::where('_id',$photo_collection_id)->first()->toArray();
+            //$images_url = getMediaUrl($userPhotosFolderPath);
+           
+            $images_url = public_path('media-storage/users/'.getUserID().'/photos/'.$userPhotosCollection['file']);
+            
+            if(File::exists($images_url)){
+                echo "s";
+                    unlink($images_url);
+                }
+           
+            $delete_photo = UserPhotosModel::where('_id',$photo_collection_id)->delete();
         }
-       $delete_photo = UserPhotosModel::where('_id',$photo_collection_id)->delete();
         return $this->engineReaction(1, [], __tr('Portfolio picture deleted successfully.'));
     }
 
@@ -946,12 +954,16 @@ class UserSettingEngine extends BaseEngine implements UserSettingEngineInterface
     public function processDeleteUserVideo($video_id){
 
             $user_id = getUserID();
-            $user_video = UserVideosModel::where('id',$video_id)->where('users_id',$user_id)->first()->toArray();
-            $video_url = public_path('videos/'.$user_video['file']);
-            if(File::exists($video_url)){
-                unlink($video_url);
+            $user_video = UserVideosModel::where('id',$video_id)->where('users_id',$user_id)->first();
+            //echo "<pre>"; print_r($user_video); exit;
+            if (!empty($user_video)) {
+                // code...
+                $video_url = public_path('videos/'.$user_video['file']);
+                if(File::exists($video_url)){
+                    unlink($video_url);
+                }
+                $delete = UserVideosModel::where('id',$video_id)->where('users_id',$user_id)->delete();
             }
-            $delete = UserVideosModel::where('id',$video_id)->where('users_id',$user_id)->delete();
             return $this->engineReaction(1, null, __tr('Video deleted successfully!.'));
     }
 

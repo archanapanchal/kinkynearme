@@ -62,7 +62,8 @@
                 @endif
 
                 @if(!empty($user['kinks']))
-                    <p>{{ str_limit($user['kinks'], $limit = 25, $end = '...') }}</p>
+                    @php $kink = str_limit($user['kinks'], $limit = 25, $end = '...')  @endphp
+                    <p>{{ucwords(str_replace(array(",", "-"), array(", ", " "),$kink))}}</p>
                 @else 
                     <p>BDSM, Blindfold, Piercing</p>
                 @endif

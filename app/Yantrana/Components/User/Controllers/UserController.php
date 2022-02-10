@@ -37,6 +37,7 @@ use App\Yantrana\Components\UserSetting\Models\UserSpecificationModel;
 use App\Yantrana\Components\AbuseReport\ManageAbuseReportEngine;
 use App\Yantrana\Components\AbuseReport\Requests\{AbuseReportRequest
 };
+
 class UserController extends BaseController
 {
     /**
@@ -384,6 +385,8 @@ class UserController extends BaseController
         if ($Update_profile_setting['reaction_code'] === 1) {
             return $this->responseAction(
                 $this->processResponse($Update_profile_setting, [], [], true),
+                
+                ///$this->redirectTo(route('user.profile_view',['username' => getUserAuthInfo('profile.username')])->previous()."#settings")
                 $this->redirectTo('user.profile_view',['username' => getUserAuthInfo('profile.username')])
             );
         } else {
@@ -608,7 +611,7 @@ class UserController extends BaseController
         }else{
             $processReaction['data']['plan_deatail'] = "";
         }
-
+        echo "<pre>"; print_r($blockUser_array); exit;
         $processReaction['data']['block_user_collection'] = "";
         if (count($blockUserCollection) != 0) {
             $processReaction['data']['block_user_collection'] = $blockUser_array;
@@ -622,6 +625,7 @@ class UserController extends BaseController
         $processReaction['data']['active_tab'] = 7;
         $userMatchData = getMatchUser();
         $processReaction['data']['userMatchData'] = $userMatchData;
+
         return $this->loadProfileView('user.profile', $processReaction['data']);
 
 
@@ -658,14 +662,21 @@ class UserController extends BaseController
         $processReaction = $this->userEngine->prepareUserProfile($userName);
         $UserSubscription_plan = $this->userEngine->fetchUserSubscription();
         $blockUserCollection = $this->userRepository->fetchAllBlockUser(true);
+        
+        //echo "<pre>"; print_r($processReaction); exit;
 
         $blockUser_array = array();
         foreach ($blockUserCollection as $key => $value) {
-            $blockUser_array[] = array('to_users__id' => $value['to_users__id'],'userFullName' => $value['userFullName'],'profile_picture' => $value['profile_picture'],'countryName' =>$value['countryName']);
+            $specifications = UserSpecificationModel::select('user_specifications.specification_key','user_specifications.specification_value')->where('user_specifications.specification_key','kinks')->where('users__id',$value['to_users__id'])->get()->toArray();
+            $kinks = 'BDSM, Blindfold, Piercing';
+            if(!empty($specifications)){
+             $kinks = str_limit($specifications[0]['specification_value'], $limit = 25, $end = '...');
+            } 
+            $profileImageFolderPath = getPathByKey('profile_photo', ['{_uid}' => $value['userUId']]);
+            $userImageUrl = getMediaUrl($profileImageFolderPath, $value['profile_picture']);
+            $blockUser_array[] = array('to_users__id' => $value['to_users__id'],'userFullName' => $value['username'],'profile_picture' => $userImageUrl,'countryName' =>$value['countryName'],'kinks' => $kinks);
         }
         $PlanByType = $this->userEngine->fetchPlanByType();
-
-        
         if (empty($UserSubscription_plan)) {
             $fetchPlan['data'] = "";
         }else{
@@ -722,7 +733,8 @@ class UserController extends BaseController
         $processReaction['data']['active_tab'] = 8;
         $userMatchData = getMatchUser();
         $processReaction['data']['userMatchData'] = $userMatchData;
-       
+        /*echo "<pre>"; print_r($processReaction['data']); exit;
+       exit;*/
         return $this->loadProfileView('user.profile', $processReaction['data']);
     }
 
@@ -737,6 +749,26 @@ class UserController extends BaseController
         }
 
           //echo "<pre>";print_r($search_data);exit();
+        foreach($search_data as $keys => $value){
+            /*Specification*/
+            $our_sexual_orientation = '';
+            $kinks = 'BDSM, Blindfold, Piercing';
+            $specifications = UserSpecificationModel::select('user_specifications.specification_key','user_specifications.specification_value')->where('users__id',$value['_id'])->get()->toArray();
+               
+            foreach ($specifications as $key => $spec) {
+                if($spec['specification_key'] == 'our_sexual_orientation'){
+                    $our_sexual_orientation = $spec['specification_value'];
+                }
+                if($spec['specification_key'] == 'kinks'){
+                    $kinks = str_limit($spec['specification_value'], $limit = 25, $end = '...');;
+                }
+            }
+            $search_data[$keys]['our_sexual_orientation'] = $our_sexual_orientation;
+            $search_data[$keys]['kinks'] = $kinks;
+           
+                /*End*/
+        }
+         //echo "<pre>"; print_r($search_data); exit;
         $countUser = 0;
         if(!empty($search_data)){
             $countUser = 0;
@@ -746,8 +778,7 @@ class UserController extends BaseController
                 $countUser = count($search_data);
             }
         }
-
-    
+        
         $processReaction['data']['active_tab'] = 0;
         $processReaction['data']['advance_search'] = 0;
         $processReaction['data']['search_data'] = $search_data;
@@ -781,9 +812,9 @@ class UserController extends BaseController
         } else {
             $subscription_detail = "no";
         }
-
+        
         $processReaction['data']['userProfileData']['subscription_detail'] = $subscription_detail;
-
+       // echo "<pre>"; print_r($processReaction['data']); exit;
         return $this->loadProfileView('filter.view-all-results', $processReaction['data']);
         
     }
@@ -1939,8 +1970,7 @@ class UserController extends BaseController
                 $this->replaceView('user.partial-templates.my-liked-users', $processReaction['data'])
             );
         }else{
-
-        return $this->loadProfileView('user.who-viewed-profile', $processReaction['data']);
+            return $this->loadProfileView('user.who-viewed-profile', $processReaction['data']);
         }
 
     }
@@ -2225,7 +2255,7 @@ class UserController extends BaseController
                     if(!empty($kinks)){
 
                          $response_layout .="<p>".ucwords(str_replace(array(",", "-"), array(", ", " "),$kinks))."</p>";
-                    } else {
+                    } else {    
                         $response_layout .="<p>BDSM, Blindfold, Piercing</p>";
                     }
                     $response_layout .="</li>

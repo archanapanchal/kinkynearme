@@ -32,7 +32,7 @@
 											<img class="lw-logo-img" src="<?= getStoreSettings('logo_image_url') ?>" alt="<?= getStoreSettings('name') ?>">
 										</a>
 										<hr class="mt-4 mb-4">
-										<h4 class="text-gray-200 mb-4"><?= __tr('Forgot Your Password?') ?></h4>
+										<h4 class="text-gray-200 mb-4"><?= __tr('FORGOT YOUR PASSWORD?') ?></h4>
 										<p class="mb-4"><?= __tr("We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!")  ?></p>
 									</div>
 									<!-- / heading -->

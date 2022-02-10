@@ -23,26 +23,26 @@
 <?php // echo "<pre>"; print_r($userSpecificationTexts);exit(); ?>
 <script type="text/javascript" src="https://jstest.authorize.net/v3/AcceptUI.js" charset="utf-8"></script>
 
-	<div class="tab-pane active" id="tabs-6" role="tabpanel">
+    <div class="tab-pane active" id="tabs-6" role="tabpanel">
         <div class="my-account">
             @if($isOwnProfile)
             <div class="tab">                
-                <button class="tablinks" onclick="openCity(event, 'my-profile')" id="defaultOpen">My Profile</button>
-                <button class="tablinks" onclick="openCity(event, 'manage-pass')">Manage Password</button>
-                <button class="tablinks" onclick="openCity(event, 'subscription')">Subscription</button>
+                <button class="tablinks my-profile" onclick="openCity(event, 'my-profile')" id="defaultOpen">My Profile</button>
+                <button class="tablinks manage-pass" onclick="openCity(event, 'manage-pass')">Manage Password</button>
+                <button class="tablinks subscription" onclick="openCity(event, 'subscription')">Subscription</button>
 
                 <?php 
                 if ($userProfileData['subscription_detail'] == 'no') { ?>
                     <button class="tablinks">Blocked Profiles</button>
                     <button class="tablinks">Notification Settings</button>
-                    <button class="tablinks" onclick="openCity(event, 'delete-profile')">Delete Profile</button>
+                    <button class="tablinks delete-profile" onclick="openCity(event, 'delete-profile')">Delete Profile</button>
                 <?php }?>
 
                 <?php 
                 if ($userProfileData['subscription_detail'] == 'yes') { ?>
-                    <button class="tablinks" onclick="openCity(event, 'blocked-profiles')">Blocked Profiles</button>
-                    <button class="tablinks" onclick="openCity(event, 'settings')">Notification Settings</button>
-                    <button class="tablinks" onclick="openCity(event, 'delete-profile')">Delete Profile</button>
+                    <button class="tablinks blocked-profiles" onclick="openCity(event, 'blocked-profiles')">Blocked Profiles</button>
+                    <button class="tablinks settings" onclick="openCity(event, 'settings')">Notification Settings</button>
+                    <button class="tablinks delete-profile" onclick="openCity(event, 'delete-profile')">Delete Profile</button>
 
                 <?php }?>
 
@@ -54,10 +54,10 @@
             @endif
                 <div id="my-profile" class="tabcontent">
 
-                	<div class="my-profile-section">
+                    <div class="my-profile-section">
                         <div class="left-right-side-my-profile">
                             <div class="left-side-my-profile">
-                            	<img class="lw-profile-thumbnail lw-photoswipe-gallery-img lw-lazy-img" id="lwProfilePictureStaticImage" data-src="<?= imageOrNoImageAvailable($userData['profilePicture']) ?>">
+                                <img class="lw-profile-thumbnail lw-photoswipe-gallery-img lw-lazy-img" id="lwProfilePictureStaticImage" data-src="<?= imageOrNoImageAvailable($userData['profilePicture']) ?>">
                             </div>
 
                             <div class="right-side-my-profile">
@@ -72,14 +72,14 @@
 
                                         <h3><?= $userData['fullName'] ?></h3>
                                         <!-- show user online, idle or offline status -->
-										@if($userOnlineStatus == 1)
-										<span><img src="<?= url('dist/images/dots-thik.svg') ?>"><?= __tr("Online") ?></span>
-										@elseif($userOnlineStatus == 2)
-										<span><img src="<?= url('dist/images/dots-thik.svg') ?>"><?= __tr("Idle") ?></span>
-										@elseif($userOnlineStatus == 3)
-										<span><img src="<?= url('dist/images/dots-thik.svg') ?>"><?= __tr("Offline") ?></span>
-										@endif
-										<!-- /show user online, idle or offline status -->
+                                        @if($userOnlineStatus == 1)
+                                        <span><img src="<?= url('dist/images/dots-thik.svg') ?>"><?= __tr("Online") ?></span>
+                                        @elseif($userOnlineStatus == 2)
+                                        <span><img src="<?= url('dist/images/dots-thik.svg') ?>"><?= __tr("Idle") ?></span>
+                                        @elseif($userOnlineStatus == 3)
+                                        <span><img src="<?= url('dist/images/dots-thik.svg') ?>"><?= __tr("Offline") ?></span>
+                                        @endif
+                                        <!-- /show user online, idle or offline status -->
                                         
                                     </div>
                                     @if($isOwnProfile)
@@ -227,33 +227,47 @@
                         </div>
 
                         @if(isset($userProfileData['aboutMe']) and $userProfileData['aboutMe'])
-							<div class="my-profile-about">
-						        <p class="about-title"><?= __tr('About Me') ?></p>
-								<div class="about-content">
-									<?= __ifIsset($userProfileData['aboutMe'], $userProfileData['aboutMe'], '-') ?>
-								</div>
-							</div>
-						@endif
+                            <div class="my-profile-about">
+                                <p class="about-title"><?= __tr('About Me') ?></p>
+                                <div class="about-content">
+                                    <?= __ifIsset($userProfileData['aboutMe'], $userProfileData['aboutMe'], '-') ?>
+                                </div>
+                            </div>
+                        @endif
 
 
                         @if(!__isEmpty($photosData) or $isOwnProfile)
                         <div class="my-profile-images">
                             <p class="about-title"><?= __tr('More photos') ?></p>
+                            @if(!__isEmpty($photosData))
                             <div class="row">
-                                @if(!__isEmpty($photosData))
                                 @foreach($photosData as $key => $photo)
-                        <?php
-                           $image_url_ex = explode('/users',$photo['image_url']);
-                           $image_url_ex1 = explode('/',$image_url_ex[1]);
-                        ?>
+                                <?php
+                                   $image_url_ex = explode('/users',$photo['image_url']);
+                                   $image_url_ex1 = explode('/',$image_url_ex[1]);
+                                ?>
                                 <div class="col-md-3"><img class="lw-user-photo lw-photoswipe-gallery-img lw-lazy-img" data-img-index="<?= $key ?>" data-src="<?= imageOrNoImageAvailable($image_url_ex[0].'/users/'.getUserID().'/'.$image_url_ex1[2].'/'.$image_url_ex1[3]) ?>"></div>
                                 @endforeach
-                                @else
-                                <p><?= __tr('Oops... No images found...') ?></p>
-                                @endif
+                              
                             </div>
+                            @else
+                            <p><?= __tr('Oops... No images found...') ?></p>
+                            @endif
                         </div>
                         @endif
+
+                        @if(!empty($userData['user_videos'])) 
+                            <div class="my-profile-video">
+                                <p class="about-title"><?= __tr('More videos') ?></p>
+                                <div class="row">
+                                    @foreach ($userData['user_videos'] as $key => $video)
+                                        <div class="col-md-3"><iframe width="420" height="315" src="<?= $video['url'] ?>"></iframe> </div>
+                                    @endforeach
+                                  
+                                </div>
+                            </div>
+                        @endif
+                        
                     </div>
                 </div>
                 <div id="manage-pass" class="tabcontent form-login" style="display:none;">
@@ -378,7 +392,10 @@
                                              
                                           </td>
                                           <td class="change-plan choose-button"><a href="#" data-toggle="modal" data-target=".choose_already_selecsted_pan">CHANGE PLAN</a></td>
-                                          <td class="cancel-sub"><a href id="cancel_subscription" data-method="post" title="Subscription" id="lwFavouriteBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><div class="handle"></div>Cancel Subscription</a></td>
+
+                                          <td class="cancel-sub"><a class="discussion-forum-delete-button" title="<?= __tr('Delete Topic') ?>" href="#" data-toggle="modal" data-target="#lwCancelSubscriptionProfileModel">Cancel Subscription</a></td>
+
+                                          <!-- <td class="cancel-sub"><a href id="cancel_subscription" data-method="post" title="Subscription" id="lwFavouriteBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><div class="handle"></div>Cancel Subscription</a></td> -->
                                        </tr>
                                     </tbody>
                                  </table>
@@ -389,11 +406,26 @@
                </div>
 
 
-
-               
-
-               
-              
+                <div class="modal fade" id="lwCancelSubscriptionProfileModel" tabindex="-1" role="dialog" aria-labelledby="cancelSubscriptionProfileModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><?= __tr('Cancel Subscription') ?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="user lw-ajax-form lw-form" method="GET" action="<?= route('user.cancel.subscription') ?>">
+                                    <?= __tr("After Cancel Subscription you won't be able to access your account.?") ?>
+                                    <hr />
+                                    <input type="hidden" name="userUId" value="{{$userData['userUId']}}">
+                                    <button type="submit" class="lw-ajax-form-submit-action btn btn-primary btn-user btn-block-on-mobile"><?= __tr('Cancel Subscription')  ?></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                <div class="modal fade bd-example-modal-lg choose_already_selecsted_pan plan-for-you" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
@@ -750,18 +782,20 @@
                     <?php } else {
                         $user_profile = '';
                         foreach ($block_user_collection as $key => $block_user) { 
-                        if (empty($block_user['profile_picture'])) {
-                            $user_profile = noThumbImageURL();
-                        }
+                            /*if (empty($block_user['profile_picture'])) {
+                                $user_profile = noThumbImageURL();
+                            } else {
+                                $user_profile = $block_user['profile_picture'];
+                            }*/
                         ?>
                         <!-- profile_picture -->
                         <div class="block-profile-left-right-side d-flex-class">
                             <div class="block-profile-left-side d-flex-class">
-                               <div class="img-left-side"><img src="<?= $user_profile ?>"></div>
+                               <div class="img-left-side"><img src="<?= $block_user['profile_picture'] ?>"></div>
                                <div class="content-left-side">
                                   <h5><?= $block_user['userFullName'] ?></h5>
                                   <p class="address"><?= $block_user['countryName'] ?></p>
-                                  <p class="desig">BDSM, Blindfold, Piercing</p>
+                                  <p class="desig">{{ucwords(str_replace(array(",", "-"), array(", ", " "),$block_user['kinks']))}}</p>
                                </div>
                             </div>
                             <div class="block-profile-right-side change-plan">
@@ -956,8 +990,9 @@
                         <div class="block-profile-right-side setting-check-box">
 
                             
+                            <a class="profile-delete-button" title="<?= __tr('Delete Topic') ?>" href="#" data-toggle="modal" data-target="#lwDeleteProfileModel"> <i class="fas fa-trash-alt"></i>Delete Profile</a>
 
-                            <a href="<?= route('user.soft_delete.profile', ['username' => $userData['userName']]) ?>" onclick="return confirm('Are you sure you want to delete your profile?')" class="edit"><i class="fas fa-trash-alt"></i> Delete Profile</a>
+                           <!--  <a href="<?= route('user.soft_delete.profile', ['username' => $userData['userName']]) ?>" onclick="return confirm('Are you sure you want to delete your profile?')" class="edit"><i class="fas fa-trash-alt"></i> Delete Profile</a> -->
                         </div>
                      </div>                     
                   </div>
@@ -967,49 +1002,70 @@
     </div>
 
 
-
-	
-	<!-- user report Modal-->
-	<div class="modal fade" id="lwReportUserDialog" tabindex="-1" role="dialog" aria-labelledby="userReportModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-md" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="userReportModalLabel"><?= __tr('Abuse Report to __username__', [
-																			'__username__' => $userData['fullName']
-																		]) ?></h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<form class="lw-ajax-form lw-form" id="lwReportUserForm" method="post" data-callback="userReportCallback" action="<?= route('user.write.report_user', ['sendUserUId' => $userData['userUId']]) ?>">
-					<div class="modal-body">
-						<!-- reason input field -->
-						<div class="form-group">
-							<label for="lwUserReportReason"><?= __tr('Reason') ?></label>
-							<textarea class="form-control" rows="3" id="lwUserReportReason" name="report_reason" required></textarea>
-						</div>
-						<!-- / reason input field -->
-					</div>
-
-					<!-- modal footer -->
-					<div class="modal-footer mt-3">
-						<button class="btn btn-light btn-sm" id="lwCloseUserReportDialog"><?= __tr('Cancel') ?></button>
-						<button type="submit" class="btn btn-primary btn-sm lw-ajax-form-submit-action btn-user lw-btn-block-mobile"><?= __tr('Report') ?></button>
-					</div>
-				</form>
-				<!-- modal footer -->
-			</div>
-		</div>
-	</div>
-	<!-- /user report Modal-->
+    <div class="modal fade" id="lwDeleteProfileModel" tabindex="-1" role="dialog" aria-labelledby="deleteProfileModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><?= __tr('Delete Profile?') ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="user lw-ajax-form lw-form" method="POST" action="<?= route('user.soft_delete.profile', ['username' => $userData['userName']]) ?>">
+                        <?= __tr('Are you sure you want to delete your profile?') ?>
+                        <hr />
+                        <button type="submit" class="lw-ajax-form-submit-action btn btn-primary btn-user btn-block-on-mobile"><?= __tr('Delete Profile')  ?></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-	<!-- User block Confirmation text html -->
-	<div id="lwBlockUserConfirmationText" style="display: none;">
-		<h3><?= __tr('Are You Sure!') ?></h3>
-		<strong><?= __tr('You want to block this user.') ?></strong>
-	</div>
-	<!-- /User block Confirmation text html -->
+
+    
+    <!-- user report Modal-->
+    <div class="modal fade" id="lwReportUserDialog" tabindex="-1" role="dialog" aria-labelledby="userReportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userReportModalLabel"><?= __tr('Abuse Report to __username__', [
+                                                                            '__username__' => $userData['fullName']
+                                                                        ]) ?></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="lw-ajax-form lw-form" id="lwReportUserForm" method="post" data-callback="userReportCallback" action="<?= route('user.write.report_user', ['sendUserUId' => $userData['userUId']]) ?>">
+                    <div class="modal-body">
+                        <!-- reason input field -->
+                        <div class="form-group">
+                            <label for="lwUserReportReason"><?= __tr('Reason') ?></label>
+                            <textarea class="form-control" rows="3" id="lwUserReportReason" name="report_reason" required></textarea>
+                        </div>
+                        <!-- / reason input field -->
+                    </div>
+
+                    <!-- modal footer -->
+                    <div class="modal-footer mt-3">
+                        <button class="btn btn-light btn-sm" id="lwCloseUserReportDialog"><?= __tr('Cancel') ?></button>
+                        <button type="submit" class="btn btn-primary btn-sm lw-ajax-form-submit-action btn-user lw-btn-block-mobile"><?= __tr('Report') ?></button>
+                    </div>
+                </form>
+                <!-- modal footer -->
+            </div>
+        </div>
+    </div>
+    <!-- /user report Modal-->
+
+
+    <!-- User block Confirmation text html -->
+    <div id="lwBlockUserConfirmationText" style="display: none;">
+        <h3><?= __tr('Are You Sure!') ?></h3>
+        <strong><?= __tr('You want to block this user.') ?></strong>
+    </div>
+    <!-- /User block Confirmation text html -->
 
 @push('appScripts')
 
@@ -1253,7 +1309,16 @@ alert("afklfjalfla");
 </script>
 
 <script>
+    var activeTab = window.localStorage.getItem('activeTab');
+    if(activeTab){
+        $('.tabcontent').css('display','none');
+        $('#'+activeTab).css("display", "block");
+        $('.'+activeTab).addClass('active');
+    } else {
+        document.getElementById("defaultOpen").click();
+    }
  function openCity(evt, cityName) {
+     window.localStorage.setItem('activeTab', cityName);
        var i, tabcontent, tablinks;
        tabcontent = document.getElementsByClassName("tabcontent");
        for (i = 0; i < tabcontent.length; i++) {
@@ -1268,83 +1333,83 @@ alert("afklfjalfla");
  }
  
  // Get the element with id="defaultOpen" and click on it
- document.getElementById("defaultOpen").click();
+// document.getElementById("defaultOpen").click();
 </script>
 
 <script>
-	
-	// Get user profile data
-	function getUserProfileData(response) {
-		// If successfully stored data
-		if (response.reaction == 1) {
-			__DataRequest.get("<?= route('user.get_profile_data', ['username' => getUserAuthInfo('profile.username')]) ?>", {}, function(responseData) {
-				var requestData = responseData.data;
-				var specificationUpdateData = [];
-				_.forEach(requestData.userSpecificationData, function(specification) {
-					_.forEach(specification['items'], function(item) {
-						specificationUpdateData[item.name] = item.value;
-					});
-				});
-				__DataRequest.updateModels('userData', requestData.userData);
-				__DataRequest.updateModels('profileData', requestData.userProfileData);
-				__DataRequest.updateModels('specificationData', specificationUpdateData);
-			});
-		}
-	}
+    
+    // Get user profile data
+    function getUserProfileData(response) {
+        // If successfully stored data
+        if (response.reaction == 1) {
+            __DataRequest.get("<?= route('user.get_profile_data', ['username' => getUserAuthInfo('profile.username')]) ?>", {}, function(responseData) {
+                var requestData = responseData.data;
+                var specificationUpdateData = [];
+                _.forEach(requestData.userSpecificationData, function(specification) {
+                    _.forEach(specification['items'], function(item) {
+                        specificationUpdateData[item.name] = item.value;
+                    });
+                });
+                __DataRequest.updateModels('userData', requestData.userData);
+                __DataRequest.updateModels('profileData', requestData.userProfileData);
+                __DataRequest.updateModels('specificationData', specificationUpdateData);
+            });
+        }
+    }
 
-	/**************** User Like Dislike Fetch and Callback Block Start ******************/
-	//add disabled anchor tag class on click
-	$(".lw-like-action-btn, .lw-dislike-action-btn").on('click', function() {
-		$('.lw-like-dislike-box').addClass("lw-disable-anchor-tag");
-	});
-	//on like Callback function
-	function onLikeCallback(response) {
-		var requestData = response.data;
-		//check reaction code is 1 and status created or updated and like status is 1
-		if (response.reaction == 1 && requestData.likeStatus == 1 && (requestData.status == "created" || requestData.status == 'updated')) {
-			__DataRequest.updateModels({
-				'userLikeStatus': '<?= __tr('Liked') ?>', //user liked status
-				'userDislikeStatus': '<?= __tr('Dislike') ?>', //user dislike status
-			});
-			//add class
-			$(".lw-animated-like-heart").toggleClass("lw-is-active");
-			//check if updated then remove class in dislike heart
-			if (requestData.status == 'updated') {
-				$(".lw-animated-broken-heart").toggleClass("lw-is-active");
-			}
-		}
-		//check reaction code is 1 and status created or updated and like status is 2
-		if (response.reaction == 1 && requestData.likeStatus == 2 && (requestData.status == "created" || requestData.status == 'updated')) {
-			__DataRequest.updateModels({
-				'userLikeStatus': '<?= __tr('Like') ?>', //user like status
-				'userDislikeStatus': '<?= __tr('Disliked') ?>', //user disliked status
-			});
-			//add class
-			$(".lw-animated-broken-heart").toggleClass("lw-is-active");
-			//check if updated then remove class in like heart
-			if (requestData.status == 'updated') {
-				$(".lw-animated-like-heart").toggleClass("lw-is-active");
-			}
-		}
-		//check reaction code is 1 and status deleted and like status is 1
-		if (response.reaction == 1 && requestData.likeStatus == 1 && requestData.status == "deleted") {
-			__DataRequest.updateModels({
-				'userLikeStatus': '<?= __tr('Like') ?>', //user like status
-			});
-			$(".lw-animated-like-heart").toggleClass("lw-is-active");
-		}
-		//check reaction code is 1 and status deleted and like status is 2
-		if (response.reaction == 1 && requestData.likeStatus == 2 && requestData.status == "deleted") {
-			__DataRequest.updateModels({
-				'userDislikeStatus': '<?= __tr('Dislike') ?>', //user like status
-			});
-			$(".lw-animated-broken-heart").toggleClass("lw-is-active");
-		}
-		//remove disabled anchor tag class
-		_.delay(function() {
-			$('.lw-like-dislike-box').removeClass("lw-disable-anchor-tag");
-		}, 1000);
-	}
+    /**************** User Like Dislike Fetch and Callback Block Start ******************/
+    //add disabled anchor tag class on click
+    $(".lw-like-action-btn, .lw-dislike-action-btn").on('click', function() {
+        $('.lw-like-dislike-box').addClass("lw-disable-anchor-tag");
+    });
+    //on like Callback function
+    function onLikeCallback(response) {
+        var requestData = response.data;
+        //check reaction code is 1 and status created or updated and like status is 1
+        if (response.reaction == 1 && requestData.likeStatus == 1 && (requestData.status == "created" || requestData.status == 'updated')) {
+            __DataRequest.updateModels({
+                'userLikeStatus': '<?= __tr('Liked') ?>', //user liked status
+                'userDislikeStatus': '<?= __tr('Dislike') ?>', //user dislike status
+            });
+            //add class
+            $(".lw-animated-like-heart").toggleClass("lw-is-active");
+            //check if updated then remove class in dislike heart
+            if (requestData.status == 'updated') {
+                $(".lw-animated-broken-heart").toggleClass("lw-is-active");
+            }
+        }
+        //check reaction code is 1 and status created or updated and like status is 2
+        if (response.reaction == 1 && requestData.likeStatus == 2 && (requestData.status == "created" || requestData.status == 'updated')) {
+            __DataRequest.updateModels({
+                'userLikeStatus': '<?= __tr('Like') ?>', //user like status
+                'userDislikeStatus': '<?= __tr('Disliked') ?>', //user disliked status
+            });
+            //add class
+            $(".lw-animated-broken-heart").toggleClass("lw-is-active");
+            //check if updated then remove class in like heart
+            if (requestData.status == 'updated') {
+                $(".lw-animated-like-heart").toggleClass("lw-is-active");
+            }
+        }
+        //check reaction code is 1 and status deleted and like status is 1
+        if (response.reaction == 1 && requestData.likeStatus == 1 && requestData.status == "deleted") {
+            __DataRequest.updateModels({
+                'userLikeStatus': '<?= __tr('Like') ?>', //user like status
+            });
+            $(".lw-animated-like-heart").toggleClass("lw-is-active");
+        }
+        //check reaction code is 1 and status deleted and like status is 2
+        if (response.reaction == 1 && requestData.likeStatus == 2 && requestData.status == "deleted") {
+            __DataRequest.updateModels({
+                'userDislikeStatus': '<?= __tr('Dislike') ?>', //user like status
+            });
+            $(".lw-animated-broken-heart").toggleClass("lw-is-active");
+        }
+        //remove disabled anchor tag class
+        _.delay(function() {
+            $('.lw-like-dislike-box').removeClass("lw-disable-anchor-tag");
+        }, 1000);
+    }
 
     //on favourite Callback function
     function onFavouriteCallback(response) {
@@ -1395,32 +1460,32 @@ alert("afklfjalfla");
             $('.lw-like-dislike-box').removeClass("lw-disable-anchor-tag");
         }, 1000);
     }
-	/**************** User Like Dislike Fetch and Callback Block End ******************/
+    /**************** User Like Dislike Fetch and Callback Block End ******************/
 
-	//user report callback
-	function userReportCallback(response) {
-		//check success reaction is 1
-		if (response.reaction == 1) {
-			var requestData = response.data;
-			//form reset after success
-			$("#lwReportUserForm").trigger("reset");
-			//close dialog after success
-			$('#lwReportUserDialog').modal('hide');
-			//reload view after 2 seconds on success reaction
-			_.delay(function() {
-				__Utils.viewReload();
-			}, 1000)
-		}
-	}
+    //user report callback
+    function userReportCallback(response) {
+        //check success reaction is 1
+        if (response.reaction == 1) {
+            var requestData = response.data;
+            //form reset after success
+            $("#lwReportUserForm").trigger("reset");
+            //close dialog after success
+            $('#lwReportUserDialog').modal('hide');
+            //reload view after 2 seconds on success reaction
+            _.delay(function() {
+                __Utils.viewReload();
+            }, 1000)
+        }
+    }
 
-	//close User Report Dialog
-	$("#lwCloseUserReportDialog").on('click', function(e) {
-		e.preventDefault();
-		//form reset after success
-		$("#lwReportUserForm").trigger("reset");
-		//close dialog after success
-		$('#lwReportUserDialog').modal('hide');
-	});
+    //close User Report Dialog
+    $("#lwCloseUserReportDialog").on('click', function(e) {
+        e.preventDefault();
+        //form reset after success
+        $("#lwReportUserForm").trigger("reset");
+        //close dialog after success
+        $('#lwReportUserDialog').modal('hide');
+    });
 
 </script>
 
@@ -1490,63 +1555,63 @@ alert("afklfjalfla");
 
     
 
-	//block user confirmation
-	$("#lwBlockUserBtn").on('click', function(e) {
-		var confirmText = $('#lwBlockUserConfirmationText');
-		//show confirmation 
-		showConfirmation(confirmText, function() {
-			var requestUrl = '<?= route('user.write.block_user') ?>',
-				formData = {
-					'block_user_id': '<?= $userData['userUId'] ?>',
-				};
-			// post ajax request
-			__DataRequest.post(requestUrl, formData, function(response) {
-				if (response.reaction == 1) {
-					__Utils.viewReload();
-				}
-			});
-		});
-	});
+    //block user confirmation
+    $("#lwBlockUserBtn").on('click', function(e) {
+        var confirmText = $('#lwBlockUserConfirmationText');
+        //show confirmation 
+        showConfirmation(confirmText, function() {
+            var requestUrl = '<?= route('user.write.block_user') ?>',
+                formData = {
+                    'block_user_id': '<?= $userData['userUId'] ?>',
+                };
+            // post ajax request
+            __DataRequest.post(requestUrl, formData, function(response) {
+                if (response.reaction == 1) {
+                    __Utils.viewReload();
+                }
+            });
+        });
+    });
 
-	// Click on edit / close button 
-	$('#lwEditBasicInformation, #lwCloseBasicInfoEditBlock').click(function(e) {
-		e.preventDefault();
-		showHideBasicInfoContainer();
-	});
-	// Show / Hide basic information container
-	function showHideBasicInfoContainer() {
-		$('#lwUserBasicInformationForm').toggle();
-		$('#lwStaticBasicInformation').toggle();
-		$('#lwCloseBasicInfoEditBlock').toggle();
-		$('#lwEditBasicInformation').toggle();
-	}
-	// Show hide specification user settings
-	function showHideSpecificationUser(formId, event) {
-		event.preventDefault();
-		$('#lwEdit' + formId).toggle();
-		$('#lw' + formId + 'StaticContainer').toggle();
-		$('#lwUser' + formId + 'Form').toggle();
-		$('#lwClose' + formId + 'Block').toggle();
-	}
-	// Click on profile and cover container edit / close button 
-	$('#lwEditProfileAndCoverPhoto, #lwCloseProfileAndCoverBlock').click(function(e) {
-		e.preventDefault();
-		showHideProfileAndCoverPhotoContainer();
-	});
-	// Hide / show profile and cover photo container
-	function showHideProfileAndCoverPhotoContainer() {
-		$('#lwProfileAndCoverStaticBlock').toggle();
-		$('#lwProfileAndCoverEditBlock').toggle();
-		$('#lwEditProfileAndCoverPhoto').toggle();
-		$('#lwCloseProfileAndCoverBlock').toggle();
-	}
-	// After successfully upload profile picture
-	function afterUploadedProfilePicture(responseData) {
-		$('#lwProfilePictureStaticImage, .lw-profile-thumbnail').attr('src', responseData.data.image_url);
-	}
-	// After successfully upload Cover photo
-	function afterUploadedCoverPhoto(responseData) {
-		$('#lwCoverPhotoStaticImage').attr('src', responseData.data.image_url);
-	}
+    // Click on edit / close button 
+    $('#lwEditBasicInformation, #lwCloseBasicInfoEditBlock').click(function(e) {
+        e.preventDefault();
+        showHideBasicInfoContainer();
+    });
+    // Show / Hide basic information container
+    function showHideBasicInfoContainer() {
+        $('#lwUserBasicInformationForm').toggle();
+        $('#lwStaticBasicInformation').toggle();
+        $('#lwCloseBasicInfoEditBlock').toggle();
+        $('#lwEditBasicInformation').toggle();
+    }
+    // Show hide specification user settings
+    function showHideSpecificationUser(formId, event) {
+        event.preventDefault();
+        $('#lwEdit' + formId).toggle();
+        $('#lw' + formId + 'StaticContainer').toggle();
+        $('#lwUser' + formId + 'Form').toggle();
+        $('#lwClose' + formId + 'Block').toggle();
+    }
+    // Click on profile and cover container edit / close button 
+    $('#lwEditProfileAndCoverPhoto, #lwCloseProfileAndCoverBlock').click(function(e) {
+        e.preventDefault();
+        showHideProfileAndCoverPhotoContainer();
+    });
+    // Hide / show profile and cover photo container
+    function showHideProfileAndCoverPhotoContainer() {
+        $('#lwProfileAndCoverStaticBlock').toggle();
+        $('#lwProfileAndCoverEditBlock').toggle();
+        $('#lwEditProfileAndCoverPhoto').toggle();
+        $('#lwCloseProfileAndCoverBlock').toggle();
+    }
+    // After successfully upload profile picture
+    function afterUploadedProfilePicture(responseData) {
+        $('#lwProfilePictureStaticImage, .lw-profile-thumbnail').attr('src', responseData.data.image_url);
+    }
+    // After successfully upload Cover photo
+    function afterUploadedCoverPhoto(responseData) {
+        $('#lwCoverPhotoStaticImage').attr('src', responseData.data.image_url);
+    }
 </script>
 @endpush

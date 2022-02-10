@@ -36,7 +36,8 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <!-- delete all chat button -->
-                <a class="dropdown-item lw-disable-link" id="lwDeleteAllChatDisableButton" readonly><i class="fas fa-trash"></i> <?= __tr('Delete All Chat') ?></a>
+                <!-- lwDeleteAllChatDisableButton -->
+                <a class="dropdown-item lw-disable-link" id="lwDeleteAllChatActiveButton" readonly><i class="fas fa-trash"></i> <?= __tr('Delete All Chat') ?></a>
                 <a class="dropdown-item lw-ajax-link-action" id="lwDeleteAllChatActiveButton" href="<?= route('user.write.delete_all_messages', ['userId' => $userData['user_id']]) ?>" data-method="post" data-callback="userChatResponse" data-post-data='<?= json_encode(['to_user_id' => $userData['user_id']]) ?>' type="button"><i class="fas fa-trash"></i> <?= __tr('Delete All Chat') ?></a>
                 <!-- /delete all chat button -->
             </div>

@@ -370,6 +370,7 @@ class UserRepository extends BaseRepository implements UserRepositoryBlueprint
                         DB::raw('CONCAT(users.first_name, " ", users.last_name) AS userFullName')
                     ],
                     'user_profiles' => [
+                        '_uid',
                         'profile_picture',
                         'countries__id',
                         'gender',

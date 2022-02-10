@@ -227,7 +227,7 @@
                   <div class="advance-search-right">
                      <div class="action-button">
                        <input type="submit" name="submit" value="search" class="btn btn-outline-secondary bg-color">
-                        <button type="button" class="btn btn-outline-secondary">clear</button>
+                        <!-- <button type="button" class="btn btn-outline-secondary">clear</button> -->
                      </div>
                   </div>
                </div>
@@ -698,7 +698,7 @@
 			                
 			            </div>
 			            <div class="right-side-bar-header">
-			                <div class="notification-bar"><img src="<?= url('dist/images/notification-icon.svg') ?>"><span class="count-num">0</span></div>
+			                <!-- <div class="notification-bar"><img src=" url('dist/images/notification-icon.svg') ?>"><span class="count-num">0</span></div> -->
 			                <div class="admin-bar">
 			                	<img class="lw-profile-thumbnail lw-lazy-img" data-src="<?= getUserAuthInfo('profile.profile_picture_url') ?>">
 			                    <div class="form-field">

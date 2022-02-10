@@ -7,8 +7,6 @@
 @section('page-image', getStoreSettings('logo_image_url'))
 @section('twitter-card-image', getStoreSettings('logo_image_url'))
 @section('page-url', url()->current())
-
-
 <!-- Page Heading -->
 <div class="tab-pane active" id="tabs-2" role="tabpanel">
     <div class="find-people-tab tab-inner">

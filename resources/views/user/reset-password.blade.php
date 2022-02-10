@@ -5,7 +5,7 @@
 <section class="login-section">
     <div class="form-login fadeInDown">
     <div class="form-title text-center">
-        <h2 class="heading-title"><?= __tr('Reset Your Password?') ?></h2>
+        <h2 class="heading-title"><?= __tr('"RESET YOUR PASSWORD?') ?></h2>
         <p class="title-para"><?= __tr("We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!") ?></p>
     </div>
     <div id="formContent">

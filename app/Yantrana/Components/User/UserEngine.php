@@ -1308,8 +1308,9 @@ class UserEngine extends BaseEngine
         $userId = $user->_id;
 
         $userVideoCollection = $this->userSettingRepository->fetchUserVideos(getUserID());
-         $UserSubscription_plan = $this->fetchUserSubscription();
+        $UserSubscription_plan = $this->fetchUserSubscription();
 
+        //echo "<pre>"; print_r($userVideoCollection); exit;
          $plan_id ="";
         $config_detail_video = "";
         $title ="";
